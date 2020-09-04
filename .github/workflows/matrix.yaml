@@ -6,10 +6,12 @@ jobs:
     outputs:
        matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
+    - name: checkout source code
+      uses: actions/checkout@v1
     - id: setmatrix
       run: |
         shopt -s nullglob
-        matrixArray=(lambdas/*) # Creates array of files
+        matrixArray=(./lambdas/*) # Creates array of files
         matrixArray=`echo ${matrixArray[@]}` # Convert to space separated string
         echo "::set-output name=matrix::$matrixArray"
   job2:
