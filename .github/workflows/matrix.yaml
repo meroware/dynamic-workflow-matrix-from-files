@@ -4,13 +4,13 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     outputs:
-       matrix: ${{ steps.set-matrix.outputs.matrix }}
+       matrix: ${{ steps.setmatrix.outputs.matrix }}
     steps:
-    - id: set-matrix
+    - id: setmatrix
       run: |
         shopt -s nullglob
         matrixArray=(lambdas/*)
-        echo "::set-output name=matrix::${matrixArray[@]}"
+        echo "::set-output name=matrix::teststring"
   job2:
     needs: job1
     runs-on: ubuntu-latest
