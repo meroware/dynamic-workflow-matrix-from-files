@@ -20,5 +20,5 @@ jobs:
     steps:
      - name: checkout source code
        uses: actions/checkout@v1
-     - run: echo "${{ needs.job1.outputs.matrix[@] }}"
+     - run: echo "${{ needs.job1.outputs.matrix }}[@]"
      - run: echo ${{ matrix.lambdafile }}
