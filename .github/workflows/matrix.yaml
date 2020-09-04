@@ -16,11 +16,10 @@ jobs:
   job2:
     needs: job1
     runs-on: ubuntu-latest
-#     strategy:
-#       matrix:
-#         lambdafile:${{ needs.job1.outputs.matrix }} (`echo ${matrixArray[@]}`)
+    strategy:
+      matrix:
+        lambdafile:${{ needs.job1.outputs.matrix }} # (`echo ${matrixArray[@]}`)
     steps:
      - name: checkout source code
        uses: actions/checkout@v1
-     - run: echo "${{ needs.job1.outputs.matrix }}"
      - run: echo ${{ matrix.lambdafile }}
