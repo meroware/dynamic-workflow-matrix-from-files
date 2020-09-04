@@ -12,8 +12,7 @@ jobs:
       run: |
         shopt -s nullglob
         matrixArray=(./lambdas/*) # Creates array of files
-        matrixArray=`echo ${matrixArray[@]}` # Convert to space separated string
-        echo "::set-output name=matrix::$matrixArray"
+        echo "::set-output name=matrix::${matrixArray[@]}" # echo converted array to space separated string
   job2:
     needs: job1
     runs-on: ubuntu-latest
