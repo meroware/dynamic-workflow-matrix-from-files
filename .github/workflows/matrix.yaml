@@ -21,7 +21,9 @@ jobs:
         jq tostring > tmp
         # End Generate Json String
         cat tmp
-        tmpobj=$(cat tmp) # Use this as jq @sh not working right
+        tmpobj=`cat ./tmp` # Use this as jq @sh not working right
+        echo $tmpobj
+        tmpobj=$(cat ./tmp) # Use this as jq @sh not working right
         echo $tmpobj
         matrixStringifiedObject=${tmpobj:1:${#tmpobj}-2} # Clean Unwanted characters
         echo $matrixStringifiedObject
