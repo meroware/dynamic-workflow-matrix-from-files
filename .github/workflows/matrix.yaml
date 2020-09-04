@@ -10,7 +10,7 @@ jobs:
       run: |
         shopt -s nullglob
         matrixArray=(lambdas/*)
-        echo "::set-output name=matrix::teststring"
+        echo "::set-output name=matrix::\"${matrixArray[@]}\""
   job2:
     needs: job1
     runs-on: ubuntu-latest
