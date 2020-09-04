@@ -11,15 +11,19 @@ jobs:
     - id: setmatrix
       run: |
         matrixArray=$(find ./lambdas -name '*.js') # Creates array of all files .js withing lambdas
+        echo $matrixArray
         # Start Generate Json String
         echo "$matrixArray" | \
         jq --slurp --raw-input 'split("\n")[:-1]' | \
         jq  "{\"filepath\": .[] }" | \
         jq -s "{ \"include\": . }" | \
         jq tostring > tmp
+        cat ./tmp
         # End Generate Json String
         tmpobj=$(cat ./tmp) # Use this as jq @sh not working right
+        echo $tmpobj
         matrixStringifiedObject=${tmpobj:1:${#tmpobj}-2} # Clean Unwanted characters
+        echo $matrixStringifiedObject
         echo "::set-output name=matrix::$matrixStringifiedObject"
         #echo "::set-output name=matrix::{\"include\":[{\"filepath\":\"./example1/lambdafile1.js\"},{\"filepath\":\"./example2/lambdafile2.js\"}]}"
   job2:
