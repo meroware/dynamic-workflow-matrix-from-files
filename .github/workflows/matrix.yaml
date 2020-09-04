@@ -9,7 +9,7 @@ jobs:
     - id: setmatrix
       run: |
         shopt -s nullglob
-        matrixArray="lambdas"
+        matrixArray="`${(lambdas/*)[@]}`"
         echo "::set-output name=matrix::$matrixArray"
   job2:
     needs: job1
