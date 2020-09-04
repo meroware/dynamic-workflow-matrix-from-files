@@ -11,14 +11,15 @@ jobs:
     - id: setmatrix
       run: |
         shopt -s nullglob
-        matrixArray=(./lambdas/*) # Creates array of files
-        echo "::set-output name=matrix::${matrixArray[@]}" # echo converted array to space separated string
+        # matrixArray=(./lambdas/*) # Creates array of files
+        # echo "::set-output name=matrix::${matrixArray[@]}" # echo converted array to space separated string
+        echo "::set-output name=matrix::{\"include\":[{\"lambdafile\":\"./example1/lambdafile1.js\"},{\"lambdafile\":\"./example2/lambdafile2.js\"}]}"
   job2:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        lambdafile:(`echo ${{ needs.job1.outputs.matrix }}`) # (`echo ${matrixArray[@]}`)
+        lambdafile:${{fromJson(needs.job1.outputs.matrix)}}
     steps:
      - name: checkout source code
        uses: actions/checkout@v1
