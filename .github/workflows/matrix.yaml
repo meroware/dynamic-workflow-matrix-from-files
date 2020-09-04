@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        lambdafile:${{ needs.job1.outputs.matrix }} # (`echo ${matrixArray[@]}`)
+        lambdafile:(`echo ${{ needs.job1.outputs.matrix }}`) # (`echo ${matrixArray[@]}`)
     steps:
      - name: checkout source code
        uses: actions/checkout@v1
