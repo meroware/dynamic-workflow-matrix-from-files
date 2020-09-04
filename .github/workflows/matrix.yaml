@@ -12,11 +12,13 @@ jobs:
       run: |
         shopt -s nullglob
         matrixArray=$(find ./lambdas -name '*.js') # Creates array of all files .js withing lambdas
-        echo $array | \ # Start Generate Json String
+        # Start Generate Json String
+        echo $array | \
         jq --slurp --raw-input 'split(" ")[:-1]' | \
         jq  "{\"lambdafile\": .[] }" | \
         jq -s "{ \"include\": . }" | \
-        jq tostring > tmp # End Generate Json String
+        jq tostring > tmp 
+        # End Generate Json String
         matrixStringifiedObject=`cat tmp` # Use this as jq @sh not working right
         echo "::set-output name=matrix::$matrixStringifiedObject"
         #echo "::set-output name=matrix::{\"include\":[{\"lambdafile\":\"./example1/lambdafile1.js\"},{\"lambdafile\":\"./example2/lambdafile2.js\"}]}"
