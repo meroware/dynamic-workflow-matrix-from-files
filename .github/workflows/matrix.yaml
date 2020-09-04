@@ -20,7 +20,8 @@ jobs:
         jq -s "{ \"include\": . }" | \
         jq tostring > tmp 
         # End Generate Json String
-        matrixStringifiedObject=$(cat tmp) # Use this as jq @sh not working right
+        tmpobj=$(cat tmp) # Use this as jq @sh not working right
+        matrixStringifiedObject=${tmpobj:1:${#tmpobj}-2} #Clean Unwanted characters
         echo "::set-output name=matrix::$matrixStringifiedObject"
         #echo "::set-output name=matrix::{\"include\":[{\"filepath\":\"./example1/lambdafile1.js\"},{\"filepath\":\"./example2/lambdafile2.js\"}]}"
   job2:
