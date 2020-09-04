@@ -12,14 +12,16 @@ jobs:
       run: |
         shopt -s nullglob
         matrixArray=(./lambdas/*) # Creates array of files
-        matrixObject=`
-         jq -Rnc '
-          ( input | split(" ") ) as $vals |
-          [[$vals] | transpose[] | { "lambdafile": .[0] }]
-          ' <<<${matrixArray[@]} | jq "{ \"include\": . }"
+        matrixStringifiedObject=`
+            jq -Rnc '
+            ( input | split(" ") ) as $vals |
+            [[$vals] | transpose[] | { "lambdafile": .[0] }]
+            ' <<<${matrixArray[@]} |
+            jq "{ \"include\": . }" |
+            jq tostring
         `
-        # echo "::set-output name=matrix::${matrixArray[@]}" # echo converted array to space separated string
-        echo "::set-output name=matrix::{\"include\":[{\"lambdafile\":\"./example1/lambdafile1.js\"},{\"lambdafile\":\"./example2/lambdafile2.js\"}]}"
+        # echo "::set-output name=matrix::$matrixStringifiedObject"
+        #echo "::set-output name=matrix::{\"include\":[{\"lambdafile\":\"./example1/lambdafile1.js\"},{\"lambdafile\":\"./example2/lambdafile2.js\"}]}"
   job2:
     needs: job1
     runs-on: ubuntu-latest
