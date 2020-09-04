@@ -16,13 +16,10 @@ jobs:
         echo "$matrixArray" | \
         jq --slurp --raw-input 'split("\n")[:-1]' | \
         jq  "{\"filepath\": .[] }" | \
-        jq -s "{ \"include\": . }" | \
-        jq tostring > tmp
+        jq -sc "{ \"include\": . }" > tmp
         cat ./tmp
         # End Generate Json String
-        tmpobj=$(cat ./tmp) # Use this as jq @sh not working right
-        echo $tmpobj
-        matrixStringifiedObject=${tmpobj:1:${#tmpobj}-2} # Clean Unwanted characters
+        matrixStringifiedObject=$(cat ./tmp) # Use this as jq @sh not working right
         echo $matrixStringifiedObject
         echo "::set-output name=matrix::$matrixStringifiedObject"
         #echo "::set-output name=matrix::{\"include\":[{\"filepath\":\"./example1/lambdafile1.js\"},{\"filepath\":\"./example2/lambdafile2.js\"}]}"
