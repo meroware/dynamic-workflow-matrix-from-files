@@ -18,8 +18,7 @@ jobs:
     needs: job1
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        lambdafile:${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
     steps:
      - name: checkout source code
        uses: actions/checkout@v1
