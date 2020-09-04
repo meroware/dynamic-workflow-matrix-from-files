@@ -10,9 +10,7 @@ jobs:
       uses: actions/checkout@v1
     - id: setmatrix
       run: |
-        shopt -s nullglob
         matrixArray=$(find ./lambdas -name '*.js') # Creates array of all files .js withing lambdas
-        echo $matrixArray
         # Start Generate Json String
         echo "$matrixArray" | \
         jq --slurp --raw-input 'split("\n")[:-1]' | \
@@ -20,13 +18,8 @@ jobs:
         jq -s "{ \"include\": . }" | \
         jq tostring > tmp
         # End Generate Json String
-        cat tmp
-        tmpobj=`cat ./tmp` # Use this as jq @sh not working right
-        echo $tmpobj
         tmpobj=$(cat ./tmp) # Use this as jq @sh not working right
-        echo $tmpobj
         matrixStringifiedObject=${tmpobj:1:${#tmpobj}-2} # Clean Unwanted characters
-        echo $matrixStringifiedObject
         echo "::set-output name=matrix::$matrixStringifiedObject"
         #echo "::set-output name=matrix::{\"include\":[{\"filepath\":\"./example1/lambdafile1.js\"},{\"filepath\":\"./example2/lambdafile2.js\"}]}"
   job2:
