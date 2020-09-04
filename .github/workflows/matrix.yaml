@@ -9,7 +9,8 @@ jobs:
     - id: setmatrix
       run: |
         shopt -s nullglob
-        matrixArray="${`(lambdas/*)`[@]}" # Creates array of files and converts to space separated string for printing
+        matrixArray=(lambdas/*) # Creates array of files
+        matrixArray=`echo ${matrixArray[@]}` # Convert to space separated string
         echo "::set-output name=matrix::$matrixArray"
   job2:
     needs: job1
