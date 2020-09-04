@@ -9,14 +9,14 @@ jobs:
     - id: setmatrix
       run: |
         shopt -s nullglob
-        matrixArray=(lambdas/*)
-        echo "::set-output name=matrix::\"${matrixArray[@]}\""
+        matrixArray="lambdas"
+        echo "::set-output name=matrix::$matrixArray"
   job2:
     needs: job1
     runs-on: ubuntu-latest
 #     strategy:
 #       matrix:
-#         lambdafile:${{ needs.job1.outputs.matrix }} 
+#         lambdafile:${{ needs.job1.outputs.matrix }} (`echo ${matrixArray[@]}`)
     steps:
      - name: checkout source code
        uses: actions/checkout@v1
