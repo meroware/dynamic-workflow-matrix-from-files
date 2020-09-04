@@ -11,7 +11,7 @@ jobs:
     - id: setmatrix
       run: |
         shopt -s nullglob
-        matrixArray=(./lambdas/*) # Creates array of files
+        matrixArray=(`find ./lambdas -name '*.js'`) # Creates array of all files .js withing lambdas
         matrixStringifiedObject=`
             jq -Rnc '
             ( input | split(" ") ) as $vals |
